@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أعمال زواياك - معرض التصميم الداخلي</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; background-color: #f4efe6; color: #2c4159; }
+        .brand-bg { background-color: #f4efe6; }
+        .brand-primary { color: #2c4159; }
+        .brand-accent { background-color: #e88548; }
+        .brand-accent-border { border-color: #e88548; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+    <div id="home-view" class="flex-grow flex flex-col items-center justify-center p-6 text-center">
+        <div class="mb-6 p-6 bg-white/60 backdrop-blur-md rounded-2xl shadow-sm border border-[#e88548]/20 max-w-sm w-full flex flex-col items-center">
+            <div class="w-48 h-48 mb-4 flex items-center justify-center overflow-hidden">
+                <img src="https://i.ibb.co/6y45Wj3/logo.png" alt="شعار أعمال زواياك" class="w-full h-full object-contain">
+            </div>
+            <h1 class="text-2xl font-bold brand-primary tracking-wide">أعمال زواياك</h1>
+            <p class="text-sm text-gray-600 mt-1">للتصميم الداخلي والديكور</p>
+        </div>
+        <button onclick="showPortfolio()" class="brand-accent text-white font-bold py-3 px-8 rounded-full shadow-lg hover:opacity-95 transition transform hover:scale-105 flex items-center gap-2">
+            <span>عرض الأعمال</span>
+        </button>
+    </div>
+    <div id="portfolio-view" class="hidden flex-grow container mx-auto px-4 py-8 max-w-4xl">
+        <div class="flex justify-between items-center mb-8 border-b pb-4 brand-accent-border">
+            <div>
+                <h2 class="text-2xl font-bold brand-primary">معرض أعمال العملاء</h2>
+                <p class="text-sm text-gray-600">أحدث مشاريع التصميم والتنفيذ</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="openAddModal()" class="brand-accent text-white px-4 py-2 rounded-lg text-sm font-semibold shadow hover:opacity-90 transition">+ إضافة عمل جديد</button>
+                <button onclick="showHome()" class="bg-gray-200 brand-primary px-4 py-2 rounded-lg text-sm font-semibold">الرئيسية</button>
+            </div>
+        </div>
+        <div id="projects-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"></div>
+        <div id="empty-state" class="text-center py-16">
+            <p class="text-gray-600 font-medium">لا توجد أعمال مضافة حالياً.</p>
+            <p class="text-sm text-gray-500 mt-1">اضغط على زر "إضافة عمل جديد" لنشر صور أعمالك مباشرة!</p>
+        </div>
+    </div>
+    <div id="add-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl p-6 max-w-md w-full shadow-2xl">
+            <h3 class="text-lg font-bold brand-primary mb-4">إضافة مشروع جديد للمعرض</h3>
+            <form id="project-form" onsubmit="saveProject(event)" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">عنوان المشروع أو العميل</label>
+                    <input type="text" id="project-title" required class="w-full px-3 py-2 border rounded-lg">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">رابط الصورة</label>
+                    <input type="url" id="project-image" required class="w-full px-3 py-2 border rounded-lg">
+                </div>
+                <div class="flex justify-end gap-2 pt-2">
+                    <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-gray-100 rounded-lg">إلغاء</button>
+                    <button type="submit" class="px-4 py-2 brand-accent text-white rounded-lg">نشر المشروع</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="text-center py-4 text-xs text-gray-500 brand-bg border-t">جميع الحقوق محفوظة © أعمال زواياك</footer>
+    <script>
+        let projects = JSON.parse(localStorage.getItem('zawayak_projects')) || [];
+        function showPortfolio() { document.getElementById('home-view').classList.add('hidden'); document.getElementById('portfolio-view').classList.remove('hidden'); renderProjects(); }
+        function showHome() { document.getElementById('portfolio-view').classList.add('hidden'); document.getElementById('home-view').classList.remove('hidden'); }
+        function openAddModal() { document.getElementById('add-modal').classList.remove('hidden'); document.getElementById('add-modal').classList.add('flex'); }
+        function closeAddModal() { document.getElementById('add-modal').classList.remove('flex'); document.getElementById('add-modal').classList.add('hidden'); }
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            const emptyState = document.getElementById('empty-state');
+            grid.innerHTML = '';
+            if (projects.length === 0) { emptyState.classList.remove('hidden'); return; }
+            emptyState.classList.add('hidden');
+            projects.forEach((proj, index) => {
+                grid.innerHTML += `<div class="bg-white rounded-xl overflow-hidden shadow-md border"><img src="${proj.image}" alt="${proj.title}" class="w-full h-48 object-cover"><div class="p-4"><h4 class="font-bold brand-primary text-base">${proj.title}</h4></div><div class="px-4 pb-4 flex justify-end"><button onclick="deleteProject(${index})" class="text-red-500 text-xs">حذف</button></div></div>`;
+            });
+        }
+        function saveProject(e) {
+            e.preventDefault();
+            const title = document.getElementById('project-title').value;
+            const imageUrl = document.getElementById('project-image').value;
+            projects.unshift({ title, image: imageUrl });
+            localStorage.setItem('zawayak_projects', JSON.stringify(projects));
+            document.getElementById('project-form').reset();
+            closeAddModal();
+            renderProjects();
+        }
+        function deleteProject(index) {
+            if (confirm('هل أنت متأكد من الحذف؟')) {
+                projects.splice(index, 1);
+                localStorage.setItem('zawayak_projects', JSON.stringify(projects));
+                renderProjects();
+            }
+        }
+    </script>
+</body>
+</html>
