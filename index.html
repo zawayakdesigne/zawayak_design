@@ -7,12 +7,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b1329; /* خلفية كحلي غامق فخم */
-            --card-bg: #131c38; /* خلفية البطاقات */
+            --bg-color: #0b1329; /* خلفية كحلي غامق */
+            --card-bg: #131c38;  /* لون بطاقات كحلي أفتح بدرجة */
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
             --accent-color: #38bdf8;
-            --transition: all 0.3s ease;
+            --border-color: #1e293b;
+            --transition: all 0.25s ease;
         }
 
         * {
@@ -31,15 +32,27 @@
 
         header {
             text-align: center;
-            padding: 40px 20px;
-            border-bottom: 1px solid #1e293b;
+            padding: 35px 20px;
+            border-bottom: 1px solid var(--border-color);
             margin-bottom: 30px;
         }
 
+        /* تنسيق اللوغو الدائري */
+        .site-logo {
+            width: 90px;
+            height: 90px;
+            object-fit: cover;
+            margin-bottom: 12px;
+            border-radius: 50%;
+            background-color: #f7f3eb;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
         header h1 {
-            font-size: 2.3rem;
+            font-size: 2.2rem;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             letter-spacing: 1px;
         }
 
@@ -49,36 +62,60 @@
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 960px;
             margin: 0 auto;
             padding: 0 15px;
         }
 
-        /* شبكة عرض الصور بنمط شبيه بالإنستغرام */
+        /* أزرار قوائم التصنيفات (الفلترة) */
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 35px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background-color: var(--card-bg);
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+            padding: 8px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.95rem;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--text-primary);
+            color: var(--bg-color);
+            border-color: var(--text-primary);
+            font-weight: bold;
+        }
+
+        /* شبكة عرض بنمط إنستغرام */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
             gap: 20px;
         }
 
         .project-card {
             background-color: var(--card-bg);
-            border-radius: 10px;
+            border-radius: 8px;
             overflow: hidden;
-            border: 1px solid #1e293b;
+            border: 1px solid var(--border-color);
             transition: var(--transition);
-        }
-
-        .project-card:hover {
-            border-color: var(--text-secondary);
         }
 
         .project-img-container {
             position: relative;
-            height: 280px; /* شكل مربع مقارب للإنستغرام */
+            width: 100%;
+            aspect-ratio: 1 / 1; /* أبعاد مربعة مثل إنستغرام */
             cursor: pointer;
             overflow: hidden;
-            background-color: #000;
+            background-color: #070d1d;
         }
 
         .project-img {
@@ -89,15 +126,16 @@
         }
 
         .project-img-container:hover .project-img {
-            transform: scale(1.02);
+            transform: scale(1.03);
         }
 
         .project-info {
-            padding: 15px;
+            padding: 14px 16px;
         }
 
         .project-title {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
+            font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 4px;
         }
@@ -108,45 +146,47 @@
             margin-bottom: 12px;
         }
 
-        /* التصنيف (القائمة) تحت الصورة والوصف + زر الإعجاب */
+        /* الشريط السفلي تحت الصورة: القائمة + زر الإعجاب */
         .card-footer-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-top: 1px solid #1e293b;
+            border-top: 1px solid var(--border-color);
             padding-top: 10px;
         }
 
         .project-category-tag {
-            font-size: 0.75rem;
-            background-color: #1e293b;
+            font-size: 0.8rem;
+            background-color: var(--border-color);
             color: var(--accent-color);
-            padding: 4px 10px;
-            border-radius: 12px;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-weight: 500;
         }
 
-        /* زر الإعجاب (قلب) */
-        .like-container {
+        /* زر الإعجاب */
+        .like-btn {
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
             cursor: pointer;
             background: none;
             border: none;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             transition: var(--transition);
         }
 
-        .like-container:hover, .like-container.liked {
+        .like-btn:hover, .like-btn.liked {
             color: #f43f5e;
         }
 
         .like-icon {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
+            line-height: 1;
         }
 
-        /* نافذة تكبير الصور (Lightbox) */
+        /* نافذة تكبير الصورة عند الضغط عليها */
         .lightbox {
             display: none;
             position: fixed;
@@ -162,9 +202,9 @@
         }
 
         .lightbox img {
-            max-width: 90%;
+            max-width: 92%;
             max-height: 90vh;
-            border-radius: 8px;
+            border-radius: 6px;
         }
 
         .lightbox-close {
@@ -178,10 +218,10 @@
 
         footer {
             text-align: center;
-            margin-top: 50px;
+            margin-top: 60px;
             color: var(--text-secondary);
             font-size: 0.85rem;
-            border-top: 1px solid #1e293b;
+            border-top: 1px solid var(--border-color);
             padding-top: 20px;
         }
     </style>
@@ -189,35 +229,46 @@
 <body>
 
     <header>
+        <!-- ضع الاسم الكامل لصورة اللوغو الموجودة في مستودعك مكان العبارة بالأسفل -->
+        <img src="ضع_الاسم_الكامل_للصورة_هنا.jpg" alt="Zawayak Design" class="site-logo">
         <h1>Zawayak Design</h1>
-        <p>معرض أعمال التصميم الداخلي والهندسة</p>
+        <p>معرض أعمال التصميم الداخلي</p>
     </header>
 
     <div class="container">
         
-        <!-- شبكة عرض الأعمال (خالية تماماً لتضيف صورك براحتك) -->
+        <!-- قوائم الفلترة المطلوبة -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" onclick="filterProjects('all', this)">الكل</button>
+            <button class="filter-btn" onclick="filterProjects('modern', this)">مودرن</button>
+            <button class="filter-btn" onclick="filterProjects('classic', this)">كلاسيك</button>
+            <button class="filter-btn" onclick="filterProjects('neoclassic', this)">نيو كلاسيك</button>
+        </div>
+
+        <!-- شبكة عرض الأعمال (فارغة وجاهزة لإضافة مشاريعك) -->
         <div class="portfolio-grid" id="portfolioGrid">
             
-            <!-- مثال توضيحي (هيك بيكون شكل الكرت لما تضيف صورك، فيك تحذفه وتضيف مشاريعك) -->
+            <!-- 
+            قالب إضافة مشروع جديد (انسخ هذا الكرت وضعه هنا داخل portfolioGrid عند إضافة أي عمل):
+            ملاحظة: في data-category اكتب إما modern أو classic أو neoclassic
+            
             <div class="project-card" data-category="modern">
                 <div class="project-img-container" onclick="openLightbox(this.querySelector('img').src)">
-                    <!-- استبدل رابط الصورة برابط صورتك الحقيقية من مستودعك -->
-                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="مشروع" class="project-img">
+                    <img src="اسم-صورة-المشروع.jpg" alt="صورة المشروع" class="project-img">
                 </div>
                 <div class="project-info">
-                    <h3 class="project-title">اسم المشروع هنا</h3>
-                    <p class="project-desc">وصف بسيط عن توزيع الفراغ والإضاءة.</p>
-                    
-                    <!-- القائمة وزر الإعجاب تحت الصورة -->
+                    <h3 class="project-title">اسم المشروع</h3>
+                    <p class="project-desc">وصف مختصر للمشروع.</p>
                     <div class="card-footer-row">
                         <span class="project-category-tag">مودرن</span>
-                        <button class="like-container" onclick="toggleLike(this)">
+                        <button class="like-btn" onclick="toggleLike(this)">
                             <span class="like-icon">♡</span>
                             <span class="like-count">0</span>
                         </button>
                     </div>
                 </div>
             </div>
+            -->
 
         </div>
 
@@ -234,7 +285,22 @@
     </footer>
 
     <script>
-        // تفاعل زر الإعجاب (القلب)
+        function filterProjects(category, btn) {
+            const cards = document.querySelectorAll('.project-card');
+            const buttons = document.querySelectorAll('.filter-btn');
+
+            buttons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
         function toggleLike(btn) {
             const icon = btn.querySelector('.like-icon');
             const countSpan = btn.querySelector('.like-count');
