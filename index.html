@@ -7,11 +7,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b1329; /* خلفية كحلي غامق */
-            --card-bg: #131c38;  /* لون بطاقات كحلي أفتح بدرجة */
+            --bg-color: #0b1329; /* خلفية كحلي فاخرة */
+            --card-bg: #131c38;  /* لون البطاقات الداكن */
             --text-primary: #ffffff;
             --text-secondary: #94a3b8;
-            --accent-orange: #e67e22; /* برتقالي مستوحى من الشعار */
+            --accent-orange: #e67e22; /* برتقالي الشعار */
             --border-color: #1e293b;
             --transition: all 0.25s ease;
         }
@@ -32,20 +32,20 @@
 
         header {
             text-align: center;
-            padding: 35px 20px;
+            padding: 40px 20px;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 30px;
         }
 
-        /* تنسيق شعارك الدائري */
         .site-logo {
-            width: 95px;
-            height: 95px;
+            width: 110px;
+            height: 110px;
             object-fit: cover;
-            margin-bottom: 12px;
+            margin-bottom: 15px;
             border-radius: 50%;
             border: 2px solid var(--accent-orange);
-            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.25);
+            background-color: #fff;
+            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.25);
         }
 
         header h1 {
@@ -66,7 +66,6 @@
             padding: 0 15px;
         }
 
-        /* قوائم التصنيفات */
         .filter-buttons {
             display: flex;
             justify-content: center;
@@ -93,7 +92,6 @@
             font-weight: bold;
         }
 
-        /* شبكة عرض بنمط إنستغرام */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -225,8 +223,7 @@
 <body>
 
     <header>
-        <!-- ضع الاسم الكامل لصورة Screenshot_20261113_... الموجودة في مستودعك مكان الجملة بالأسفل -->
-        <img src="اكتب_اسم_صورة_اللوغو_الكامل_هنا.jpg" alt="Zawayak Design" class="site-logo">
+        <img src="Screenshot_20261113_012721_Chrome.jpg" alt="Zawayak Design Logo" class="site-logo">
         <h1>Zawayak Design</h1>
         <p>معرض أعمال التصميم الداخلي</p>
     </header>
@@ -243,8 +240,8 @@
         <div class="portfolio-grid" id="portfolioGrid">
             
             <!-- 
-            قالب إضافة مشروع جديد (انسخ هذا الكرت وضعه هنا داخل portfolioGrid):
-            في data-category اكتب إما: modern أو classic أو neoclassic
+            طريقة إضافة مشروع جديد (انسخ هذا الكرت وضعه هنا داخل portfolioGrid):
+            في data-category اكتب حصراً: modern أو classic أو neoclassic
             
             <div class="project-card" data-category="modern">
                 <div class="project-img-container" onclick="openLightbox(this.querySelector('img').src)">
@@ -283,4 +280,44 @@
             const buttons = document.querySelectorAll('.filter-btn');
 
             buttons.forEach(b => b.classList.remove('active'));
-            btn.
+            btn.classList.add('active');
+
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleLike(btn) {
+            const icon = btn.querySelector('.like-icon');
+            const countSpan = btn.querySelector('.like-count');
+            let count = parseInt(countSpan.textContent);
+
+            if (btn.classList.contains('liked')) {
+                btn.classList.remove('liked');
+                icon.textContent = '♡';
+                countSpan.textContent = count - 1;
+            } else {
+                btn.classList.add('liked');
+                icon.textContent = '♥';
+                countSpan.textContent = count + 1;
+            }
+        }
+
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightboxImg');
+            lightboxImg.src = imgSrc;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').style.display = 'none';
+        }
+    </script>
+
+</body>
+</html>
