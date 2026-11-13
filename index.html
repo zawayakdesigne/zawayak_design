@@ -3,17 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zawayak Design | معرض الأعمال</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>معرض أعمال التصميم الداخلي</title>
+    <!-- استيراد خط عربي أنيق -->
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- مكتبة الأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --bg-color: #0b1329; /* خلفية كحلي فاخرة */
-            --card-bg: #131c38;  /* لون البطاقات الداكن */
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --accent-orange: #e67e22; /* برتقالي الشعار */
-            --border-color: #1e293b;
-            --transition: all 0.25s ease;
+            --bg-color: #fcfbfa;
+            --surface-color: #ffffff;
+            --primary-color: #2b3a4a;
+            --accent-color: #e07a5f;
+            --text-main: #2d3142;
+            --text-muted: #6c757d;
+            --border-color: #e5e5e7;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -25,299 +30,404 @@
 
         body {
             background-color: var(--bg-color);
-            color: var(--text-primary);
+            color: var(--text-main);
             line-height: 1.6;
-            padding-bottom: 50px;
         }
 
+        /* الهيدر وشعار اللوغو المطلوب */
         header {
-            text-align: center;
-            padding: 40px 20px;
+            background-color: var(--surface-color);
             border-bottom: 1px solid var(--border-color);
-            margin-bottom: 30px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
         }
 
-        .site-logo {
-            width: 110px;
-            height: 110px;
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-area img {
+            width: 45px;
+            height: 45px;
             object-fit: cover;
-            margin-bottom: 15px;
             border-radius: 50%;
-            border: 2px solid var(--accent-orange);
-            background-color: #fff;
-            box-shadow: 0 4px 20px rgba(230, 126, 34, 0.25);
+            border: 2px solid var(--accent-color);
         }
 
-        header h1 {
+        .logo-area span {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .admin-toggle-btn {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+            padding: 6px 14px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: var(--transition);
+        }
+
+        .admin-toggle-btn:hover {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+
+        /* القسم الرئيسي */
+        .hero {
+            text-align: center;
+            padding: 60px 20px 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
             font-size: 2.2rem;
-            color: var(--text-primary);
-            margin-bottom: 6px;
-            letter-spacing: 1px;
+            color: var(--primary-color);
+            margin-bottom: 10px;
         }
 
-        header p {
-            color: var(--text-secondary);
+        .hero p {
+            color: var(--text-muted);
             font-size: 1rem;
         }
 
-        .container {
-            max-width: 960px;
-            margin: 0 auto;
-            padding: 0 15px;
+        /* لوحة التحكم الخاصة بالمدير فقط (إضافة مشاريع) */
+        .admin-panel {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            background: var(--surface-color);
+            border: 1px dashed var(--accent-color);
+            padding: 20px;
+            border-radius: 12px;
+            display: none; /* مخفية افتراضياً ولا يراها الزوار */
         }
 
-        .filter-buttons {
+        .admin-panel h3 {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .admin-form input, .admin-form select, .admin-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .admin-form button {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .admin-form button:hover {
+            opacity: 0.9;
+        }
+
+        /* أزرار الفلترة للمودرن والنيوكلاسيك والكلاسيك */
+        .filter-container {
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 35px;
+            margin: 20px 20px 40px;
             flex-wrap: wrap;
         }
 
         .filter-btn {
-            background-color: var(--card-bg);
-            color: var(--text-secondary);
+            background-color: var(--surface-color);
             border: 1px solid var(--border-color);
-            padding: 9px 22px;
-            border-radius: 25px;
+            color: var(--text-muted);
+            padding: 8px 22px;
+            border-radius: 30px;
             cursor: pointer;
-            transition: var(--transition);
             font-size: 0.95rem;
+            transition: var(--transition);
         }
 
-        .filter-btn:hover, .filter-btn.active {
-            background-color: var(--accent-orange);
-            color: #ffffff;
-            border-color: var(--accent-orange);
-            font-weight: bold;
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
         }
 
-        .portfolio-grid {
+        /* شبكة عرض المشاريع */
+        .gallery-grid {
+            max-width: 1200px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
         }
 
         .project-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
+            background-color: var(--surface-color);
+            border-radius: 12px;
             overflow: hidden;
             border: 1px solid var(--border-color);
             transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.02);
         }
 
-        .project-img-container {
-            position: relative;
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+        }
+
+        .project-img-wrapper {
             width: 100%;
-            aspect-ratio: 1 / 1;
-            cursor: pointer;
+            height: 240px;
+            background-color: #f0f0f2;
+            position: relative;
             overflow: hidden;
-            background-color: #070d1d;
         }
 
-        .project-img {
+        .project-img-wrapper img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: var(--transition);
-        }
-
-        .project-img-container:hover .project-img {
-            transform: scale(1.03);
-        }
-
-        .project-info {
-            padding: 15px;
-        }
-
-        .project-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 4px;
-        }
-
-        .project-desc {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-        }
-
-        .card-footer-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border-color);
-            padding-top: 10px;
         }
 
         .project-category-tag {
-            font-size: 0.8rem;
-            background-color: rgba(230, 126, 34, 0.15);
-            color: var(--accent-orange);
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(43, 58, 74, 0.85);
+            color: #fff;
             padding: 4px 12px;
-            border-radius: 15px;
-            font-weight: 500;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            backdrop-filter: blur(4px);
         }
 
-        .like-btn {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            transition: var(--transition);
-        }
-
-        .like-btn:hover, .like-btn.liked {
-            color: #f43f5e;
-        }
-
-        .like-icon {
-            font-size: 1.25rem;
-            line-height: 1;
-        }
-
-        .lightbox {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(11, 19, 41, 0.95);
-            justify-content: center;
-            align-items: center;
+        .project-info {
             padding: 20px;
         }
 
-        .lightbox img {
-            max-width: 92%;
-            max-height: 90vh;
-            border-radius: 8px;
+        .project-info h3 {
+            font-size: 1.15rem;
+            color: var(--primary-color);
+            margin-bottom: 8px;
         }
 
-        .lightbox-close {
-            position: absolute;
-            top: 20px;
-            left: 30px;
-            color: #fff;
-            font-size: 2.5rem;
-            cursor: pointer;
+        .project-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
         }
 
+        /* الفوتر */
         footer {
             text-align: center;
-            margin-top: 60px;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
+            padding: 30px;
             border-top: 1px solid var(--border-color);
-            padding-top: 20px;
+            background-color: var(--surface-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
 
+    <!-- الهيدر -->
     <header>
-        <img src="Screenshot_20261113_012721_Chrome.jpg" alt="Zawayak Design Logo" class="site-logo">
-        <h1>Zawayak Design</h1>
-        <p>معرض أعمال التصميم الداخلي</p>
+        <div class="nav-container">
+            <div class="logo-area">
+                <!-- استخدام اسم اللوغو المطلوب -->
+                <img src="Screenshot_20261113_012721_Chrome.jpg" alt="شعار الموقع" onerror="this.src='https://via.placeholder.com/45'">
+                <span>معرض التصميم الداخلي</span>
+            </div>
+            <!-- زر مخصص لدخول المدير فقط ونشر المشاريع -->
+            <button class="admin-toggle-btn" onclick="toggleAdminPanel()"><i class="fa-solid fa-lock"></i> لوحة الإدارة</button>
+        </div>
     </header>
 
-    <div class="container">
-        
-        <div class="filter-buttons">
-            <button class="filter-btn active" onclick="filterProjects('all', this)">الكل</button>
-            <button class="filter-btn" onclick="filterProjects('modern', this)">مودرن</button>
-            <button class="filter-btn" onclick="filterProjects('classic', this)">كلاسيك</button>
-            <button class="filter-btn" onclick="filterProjects('neoclassic', this)">نيو كلاسيك</button>
+    <!-- القسم التعريفي -->
+    <section class="hero">
+        <h1>مرحباً بكم في معرض الأعمال</h1>
+        <p>استكشف أحدث مشاريع التصميم الداخلي الراقية والموزعة بدقة حسب الطراز الفني</p>
+    </section>
+
+    <!-- لوحة التحكم للإضافة (سرية ولا تظهر لأحد سوى المالك) -->
+    <div class="admin-panel" id="adminPanel">
+        <h3>إضافة مشروع جديد (خاص بالمدير فقط)</h3>
+        <div class="admin-form">
+            <input type="text" id="projectTitle" placeholder="عنوان المشروع (مثلاً: فيلا الأناقة)">
+            <select id="projectCategory">
+                <option value="modern">مودرن</option>
+                <option value="neoclassic">نيوكلاسيك</option>
+                <option value="classic">كلاسيك</option>
+            </select>
+            <input type="text" id="projectImgUrl" placeholder="رابط رابط الصورة المباشر (Image URL)">
+            <textarea id="projectDesc" placeholder="وصف مختصر للمشروع" rows="2"></textarea>
+            <button onclick="addNewProject()">نشر المشروع رسمياً</button>
         </div>
-
-        <div class="portfolio-grid" id="portfolioGrid">
-            
-            <!-- 
-            طريقة إضافة مشروع جديد (انسخ هذا الكرت وضعه هنا داخل portfolioGrid):
-            في data-category اكتب حصراً: modern أو classic أو neoclassic
-            
-            <div class="project-card" data-category="modern">
-                <div class="project-img-container" onclick="openLightbox(this.querySelector('img').src)">
-                    <img src="اسم-صورة-المشروع.jpg" alt="صورة المشروع" class="project-img">
-                </div>
-                <div class="project-info">
-                    <h3 class="project-title">عنوان المشروع</h3>
-                    <p class="project-desc">وصف مختصر للمشروع.</p>
-                    <div class="card-footer-row">
-                        <span class="project-category-tag">مودرن</span>
-                        <button class="like-btn" onclick="toggleLike(this)">
-                            <span class="like-icon">♡</span>
-                            <span class="like-count">0</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            -->
-
-        </div>
-
     </div>
 
-    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
-        <span class="lightbox-close">&times;</span>
-        <img id="lightboxImg" src="" alt="صورة مكبرة">
+    <!-- أزرار القائمة (مودرن، نيوكلاسيك، كلاسيك) -->
+    <div class="filter-container">
+        <button class="filter-btn active" onclick="filterProjects('all', this)">الكل</button>
+        <button class="filter-btn" onclick="filterProjects('modern', this)">مودرن</button>
+        <button class="filter-btn" onclick="filterProjects('neoclassic', this)">نيوكلاسيك</button>
+        <button class="filter-btn" onclick="filterProjects('classic', this)">كلاسيك</button>
     </div>
 
+    <!-- معرض الأعمال -->
+    <div class="gallery-grid" id="galleryGrid">
+        <!-- يتم تعبئة المشاريع ديناميكياً هنا -->
+    </div>
+
+    <!-- الفوتر -->
     <footer>
-        <p>جميع الحقوق محفوظة &copy; 2026 - Zawayak Design</p>
+        <p>جميع الحقوق محفوظة &copy; 2026</p>
     </footer>
 
     <script>
-        function filterProjects(category, btn) {
-            const cards = document.querySelectorAll('.project-card');
-            const buttons = document.querySelectorAll('.filter-btn');
+        // مصفوفة المشاريع الأولية (بدون أي صور عشوائية خارجية غير مرغوبة، معتمدة على تصنيفاتك)
+        let projects = [
+            {
+                title: "صالة استقبال مودرن",
+                category: "modern",
+                image: "https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80",
+                desc: "تصميم عصري بخطوط نظيفة وأثاث عملي يجمع بين الراحة والأناقة."
+            },
+            {
+                title: "غرفة معيشة نيوكلاسيك",
+                category: "neoclassic",
+                image: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
+                desc: "مزيج ساحر بين عراقة الكلاسيك وبساطة الحداثة بلمسات جدارية فاخرة."
+            },
+            {
+                title: "صالون استقبال كلاسيكي ملكي",
+                category: "classic",
+                image: "https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?auto=format&fit=crop&w=800&q=80",
+                desc: "تفاصيل غنية بالزخارف والأخشاب الفاخرة التي تعكس الفخامة الكلاسيكية."
+            }
+        ];
 
-            buttons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
+        // تحميل المشاريع المحفوظة محلياً إن وجدت
+        if(localStorage.getItem('my_interior_projects')) {
+            projects = JSON.parse(localStorage.getItem('my_interior_projects'));
+        }
 
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
+        // عرض المشاريع على الصفحة
+        function renderProjects(filter = 'all') {
+            const grid = document.getElementById('galleryGrid');
+            grid.innerHTML = '';
+
+            let filtered = projects;
+            if (filter !== 'all') {
+                filtered = projects.filter(p => p.category === filter);
+            }
+
+            if(filtered.length === 0) {
+                grid.innerHTML = '<p style="grid-column: 1/-1; text-align:center; color:var(--text-muted);">لا توجد مشاريع مضافة ضمن هذا التصنيف حالياً.</p>';
+                return;
+            }
+
+            filtered.forEach(p => {
+                let categoryName = p.category === 'modern' ? 'مودرن' : (p.category === 'neoclassic' ? 'نيوكلاسيك' : 'كلاسيك');
+                
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <div class="project-img-wrapper">
+                        <span class="project-category-tag">${categoryName}</span>
+                        <img src="${p.image}" alt="${p.title}" loading="lazy">
+                    </div>
+                    <div class="project-info">
+                        <h3>${p.title}</h3>
+                        <p>${p.desc}</p>
+                    </div>
+                `;
+                grid.appendChild(card);
             });
         }
 
-        function toggleLike(btn) {
-            const icon = btn.querySelector('.like-icon');
-            const countSpan = btn.querySelector('.like-count');
-            let count = parseInt(countSpan.textContent);
+        // دالة الفلترة عبر الأزرار
+        function filterProjects(category, btn) {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderProjects(category);
+        }
 
-            if (btn.classList.contains('liked')) {
-                btn.classList.remove('liked');
-                icon.textContent = '♡';
-                countSpan.textContent = count - 1;
+        // إظهار أو إخفاء لوحة الإدارة بكلمة مرور بسيطة أو نقرة سرية للمالك
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            if (panel.style.display === 'block') {
+                panel.style.display = 'none';
             } else {
-                btn.classList.add('liked');
-                icon.textContent = '♥';
-                countSpan.textContent = count + 1;
+                let pass = prompt("الرجاء إدخال كلمة مرور المدير:");
+                if (pass === "admin123") { // يمكنك تغيير كلمة المرور هنا
+                    panel.style.display = 'block';
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                } else if(pass !== null) {
+                    alert("كلمة المرور غير صحيحة!");
+                }
             }
         }
 
-        function openLightbox(imgSrc) {
-            const lightbox = document.getElementById('lightbox');
-            const lightboxImg = document.getElementById('lightboxImg');
-            lightboxImg.src = imgSrc;
-            lightbox.style.display = 'flex';
+        // دالة نشر مشروع جديد (خاصة بك وحدك عبر لوحة التحكم ولا تتيح لأي زائر النشر)
+        function addNewProject() {
+            const title = document.getElementById('projectTitle').value.trim();
+            const category = document.getElementById('projectCategory').value;
+            const image = document.getElementById('projectImgUrl').value.trim();
+            const desc = document.getElementById('projectDesc').value.trim();
+
+            if(!title || !image || !desc) {
+                alert("الرجاء تعبئة كافة الحقول المطلوبة ورابط الصورة.");
+                return;
+            }
+
+            const newProj = { title, category, image, desc };
+            projects.unshift(newProj); // إضافة المشروع في المقدمة
+
+            // حفظ التعديلات
+            localStorage.setItem('my_interior_projects', JSON.stringify(projects));
+
+            // تفريغ الحقول وتحديث العرض
+            document.getElementById('projectTitle').value = '';
+            document.getElementById('projectImgUrl').value = '';
+            document.getElementById('projectDesc').value = '';
+            document.getElementById('adminPanel').style.display = 'none';
+
+            renderProjects('all');
+            document.querySelectorAll('.filter-btn')[0].click();
+            alert("تم نشر المشروع بنجاح على الموقع!");
         }
 
-        function closeLightbox() {
-            document.getElementById('lightbox').style.display = 'none';
-        }
+        // التشغيل الأولي عند تحميل الصفحة
+        renderProjects();
     </script>
-
 </body>
 </html>
