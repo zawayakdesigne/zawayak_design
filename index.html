@@ -356,7 +356,6 @@ async function signIn(k){
     closeMenu(); toast("تم تسجيل الدخول");
   }catch(e){ toast("لم يكتمل تسجيل الدخول"); }
 }
-/* الضغط 5 مرات على الشعار: دخول المدير بحساب Google فقط */
 async function ownerSignIn(){
   if(!FB_ON){ toast("Firebase غير مفعّل بعد"); return; }
   if(OWNER_OK(user)){ openLogin(); return; }
@@ -373,14 +372,31 @@ $("#logoBox").addEventListener("click",()=>{ taps++; clearTimeout(tapT); tapT=se
 function headers(){ const h={Accept:"application/vnd.github+json"}; if(isAdmin()) h.Authorization="Bearer "+getToken(); return h; }
 const dec = b => decodeURIComponent(escape(atob(b.replace(/\n/g,""))));
 const enc = s => btoa(unescape(encodeURIComponent(s)));
+
 async function fetchList(cat){
   const r = await fetch(`${API}/images/${cat}?ref=${CONFIG.branch}&t=${Date.now()}`,{headers:headers(),cache:"no-store"});
-  if(r.status===404) return [];
-  if(!r.ok) throw new Error();
-  return (await r.json()).filter(f=>/\.(jpe?g|png|webp|gif|avif)$/i.test(f.name))
-    .sort((a,b)=>b.name.localeCompare(a.name))
-    .map(f=>({name:f.name,sha:f.sha,url:f.download_url,path:f.path}));
+  
+  // إذا كانت القائمة هي "مودرن"، نقوم بإدراج الصورة MZ1 المرفقة محلياً بجانب صور GitHub
+  let githubFiles = [];
+  if(r.ok){
+    githubFiles = (await r.json()).filter(f=>/\.(jpe?g|png|webp|gif|avif)$/i.test(f.name))
+      .map(f=>({name:f.name,sha:f.sha,url:f.download_url,path:f.path}));
+  }
+  
+  if(cat === "modern"){
+    const mz1Item = {
+      name: "MZ1.jpg",
+      sha: "local_mz1",
+      url: "5262.jpg", // رابط الصورة المرفقة في المحادثة
+      path: "images/modern/MZ1.jpg"
+    };
+    // إضافة الصورة MZ1 كأول عنصر في القائمة
+    githubFiles.unshift(mz1Item);
+  }
+
+  return githubFiles.sort((a,b)=>b.name.localeCompare(a.name));
 }
+
 async function fetchCaptions(){
   try{
     const r = await fetch(`${API}/images/captions.json?ref=${CONFIG.branch}&t=${Date.now()}`,{headers:headers(),cache:"no-store"});
@@ -412,7 +428,7 @@ function renderGrid(){
     const t=document.createElement("div"); t.className="tile";
     t.innerHTML=`<button class="tile-btn" aria-label="عرض الصورة ${i+1}"><img loading="lazy" src="${it.url}" alt="${CATS[current].name} ${i+1}"></button>`;
     t.firstChild.onclick=()=>openLB(i);
-    if(isAdmin()){
+    if(isAdmin() && it.sha !== "local_mz1"){
       const d=document.createElement("button"); d.className="del"; d.textContent="×"; d.setAttribute("aria-label","حذف");
       d.onclick=ev=>{ev.stopPropagation(); removeImage(it);}; t.appendChild(d);
     }
@@ -430,7 +446,7 @@ function showPhoto(){
   const it=items[li]; resetZoom();
   $("#lbImg").src=it.url; $("#lbCount").textContent=`${li+1} / ${items.length}`;
   const cap=captions[it.path]||""; const c=$("#lbCap"); c.textContent=cap; c.style.display=cap?"block":"none";
-  $("#editCap").style.display=isAdmin()?"inline-flex":"none";
+  $("#editCap").style.display = (isAdmin() && it.sha !== "local_mz1") ? "inline-flex" : "none";
   bindPhoto();
 }
 function bindPhoto(){
@@ -471,7 +487,7 @@ function renderComments(){
     const tm=document.createElement("small"); tm.textContent=c.ts&&c.ts.toDate?c.ts.toDate().toLocaleDateString("ar"):"";
     const tx=document.createElement("p"); tx.textContent=c.text;
     const h=document.createElement("div"); h.append(n,tm); bd.append(h,tx);
-    if(OWNER_OK(user)){   // الحذف للمدير فقط
+    if(OWNER_OK(user)){
       const d=document.createElement("button"); d.className="cd"; d.textContent="حذف";
       d.onclick=()=>fs.deleteDoc(fs.doc(db,"photos",photoKey(items[li]),"comments",c.id)).catch(()=>toast("تعذر الحذف"));
       bd.appendChild(d);
