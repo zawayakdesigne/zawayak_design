@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zawayak Design | معرض أعمال التصميم الداخلي</title>
+    <title>Zawayak Design | معرض الأعمال</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #121212;
-            --card-bg: #1e1e1e;
-            --text-primary: #e0e0e0;
-            --text-secondary: #a0a0a0;
-            --accent-color: #d4af37;
+            --bg-color: #0b1329; /* خلفية كحلي غامق فخم */
+            --card-bg: #131c38; /* خلفية البطاقات */
+            --text-primary: #ffffff;
+            --text-secondary: #94a3b8;
+            --accent-color: #38bdf8;
             --transition: all 0.3s ease;
         }
 
@@ -31,85 +31,54 @@
 
         header {
             text-align: center;
-            padding: 50px 20px;
-            background: linear-gradient(to bottom, #1a1a1a, var(--bg-color));
-            border-bottom: 1px solid #333;
+            padding: 40px 20px;
+            border-bottom: 1px solid #1e293b;
+            margin-bottom: 30px;
         }
 
         header h1 {
-            font-size: 2.5rem;
-            color: var(--accent-color);
-            margin-bottom: 10px;
+            font-size: 2.3rem;
+            color: var(--text-primary);
+            margin-bottom: 8px;
             letter-spacing: 1px;
         }
 
         header p {
             color: var(--text-secondary);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-            padding: 30px 20px;
+            padding: 0 15px;
         }
 
-        /* أزرار الفلترة حسب الطراز */
-        .filter-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .filter-btn {
-            background-color: var(--card-bg);
-            color: var(--text-secondary);
-            border: 1px solid #333;
-            padding: 8px 20px;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: var(--transition);
-            font-size: 0.95rem;
-        }
-
-        .filter-btn:hover, .filter-btn.active {
-            background-color: var(--accent-color);
-            color: #121212;
-            border-color: var(--accent-color);
-            font-weight: bold;
-        }
-
-        /* شبكة المشاريع */
+        /* شبكة عرض الصور بنمط شبيه بالإنستغرام */
         .portfolio-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
         }
 
         .project-card {
             background-color: var(--card-bg);
-            border-radius: 12px;
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid #1e293b;
             transition: var(--transition);
-            border: 1px solid #333;
-            display: flex;
-            flex-direction: column;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.15);
-            border-color: var(--accent-color);
+            border-color: var(--text-secondary);
         }
 
         .project-img-container {
             position: relative;
-            overflow: hidden;
-            height: 240px;
+            height: 280px; /* شكل مربع مقارب للإنستغرام */
             cursor: pointer;
+            overflow: hidden;
+            background-color: #000;
         }
 
         .project-img {
@@ -120,52 +89,64 @@
         }
 
         .project-img-container:hover .project-img {
-            transform: scale(1.05);
+            transform: scale(1.02);
         }
 
         .project-info {
-            padding: 20px;
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
+            padding: 15px;
         }
 
         .project-title {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             color: var(--text-primary);
-            margin-bottom: 8px;
+            margin-bottom: 4px;
         }
 
         .project-desc {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
-        /* لوحة الخامات والألوان (Mood Board) */
-        .mood-board {
+        /* التصنيف (القائمة) تحت الصورة والوصف + زر الإعجاب */
+        .card-footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #1e293b;
+            padding-top: 10px;
+        }
+
+        .project-category-tag {
+            font-size: 0.75rem;
+            background-color: #1e293b;
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        /* زر الإعجاب (قلب) */
+        .like-container {
             display: flex;
             align-items: center;
-            gap: 8px;
-            margin-top: 10px;
-            padding-top: 10px;
-            border-top: 1px dashed #333;
-        }
-
-        .mood-title {
-            font-size: 0.8rem;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
             color: var(--text-secondary);
+            font-size: 0.9rem;
+            transition: var(--transition);
         }
 
-        .color-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            border: 1px solid #555;
+        .like-container:hover, .like-container.liked {
+            color: #f43f5e;
         }
 
-        /* نافذة تكبير الصور (Lightbox Modal) */
+        .like-icon {
+            font-size: 1.1rem;
+        }
+
+        /* نافذة تكبير الصور (Lightbox) */
         .lightbox {
             display: none;
             position: fixed;
@@ -174,7 +155,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
+            background-color: rgba(11, 19, 41, 0.95);
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -184,7 +165,6 @@
             max-width: 90%;
             max-height: 90vh;
             border-radius: 8px;
-            box-shadow: 0 0 25px rgba(212, 175, 55, 0.3);
         }
 
         .lightbox-close {
@@ -194,55 +174,15 @@
             color: #fff;
             font-size: 2.5rem;
             cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .lightbox-close:hover {
-            color: var(--accent-color);
-        }
-
-        /* زر التواصل السريع */
-        .cta-section {
-            text-align: center;
-            margin-top: 80px;
-            padding: 40px 20px;
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            border: 1px solid #333;
-        }
-
-        .cta-section h3 {
-            font-size: 1.6rem;
-            margin-bottom: 10px;
-            color: var(--text-primary);
-        }
-
-        .cta-section p {
-            color: var(--text-secondary);
-            margin-bottom: 20px;
-        }
-
-        .cta-btn {
-            display: inline-block;
-            background-color: var(--accent-color);
-            color: #121212;
-            padding: 12px 30px;
-            border-radius: 25px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: var(--transition);
-        }
-
-        .cta-btn:hover {
-            opacity: 0.9;
-            transform: scale(1.05);
         }
 
         footer {
             text-align: center;
-            margin-top: 40px;
+            margin-top: 50px;
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            border-top: 1px solid #1e293b;
+            padding-top: 20px;
         }
     </style>
 </head>
@@ -250,90 +190,40 @@
 
     <header>
         <h1>Zawayak Design</h1>
-        <p>معرض أعمال التصميم الداخلي والهندسة المعمارية</p>
+        <p>معرض أعمال التصميم الداخلي والهندسة</p>
     </header>
 
     <div class="container">
         
-        <!-- 2. أزرار الفلترة حسب الطراز -->
-        <div class="filter-buttons">
-            <button class="filter-btn active" onclick="filterProjects('all')">الكل</button>
-            <button class="filter-btn" onclick="filterProjects('modern')">مودرن</button>
-            <button class="filter-btn" onclick="filterProjects('classic')">كلاسيك</button>
-            <button class="filter-btn" onclick="filterProjects('commercial')">تجاري ومكاتب</button>
-        </div>
-
-        <!-- شبكة عرض المشاريع (خالية من أي زر إضافة صور للزوار) -->
+        <!-- شبكة عرض الأعمال (خالية تماماً لتضيف صورك براحتك) -->
         <div class="portfolio-grid" id="portfolioGrid">
             
-            <!-- المشروع الأول -->
+            <!-- مثال توضيحي (هيك بيكون شكل الكرت لما تضيف صورك، فيك تحذفه وتضيف مشاريعك) -->
             <div class="project-card" data-category="modern">
                 <div class="project-img-container" onclick="openLightbox(this.querySelector('img').src)">
-                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=1000&q=80" alt="تصميم غرفة معيشة مودرن" class="project-img">
+                    <!-- استبدل رابط الصورة برابط صورتك الحقيقية من مستودعك -->
+                    <img src="https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80" alt="مشروع" class="project-img">
                 </div>
                 <div class="project-info">
-                    <div>
-                        <h3 class="project-title">غرفة معيشة مودرن</h3>
-                        <p class="project-desc">دراسة توزيع الإضاءة المخفية، المفروشات الانسيابية، وخامات الجدران المعاصرة.</p>
-                    </div>
-                    <!-- 3. لوحة الخامات والألوان للمشروع -->
-                    <div class="mood-board">
-                        <span class="mood-title">الخامات والألوان:</span>
-                        <div class="color-dot" style="background-color: #2b2b2b;" title="أسود فحمي"></div>
-                        <div class="color-dot" style="background-color: #d4af37;" title="ذهبي"></div>
-                        <div class="color-dot" style="background-color: #e5e5e5;" title="بيج فاتح"></div>
+                    <h3 class="project-title">اسم المشروع هنا</h3>
+                    <p class="project-desc">وصف بسيط عن توزيع الفراغ والإضاءة.</p>
+                    
+                    <!-- القائمة وزر الإعجاب تحت الصورة -->
+                    <div class="card-footer-row">
+                        <span class="project-category-tag">مودرن</span>
+                        <button class="like-container" onclick="toggleLike(this)">
+                            <span class="like-icon">♡</span>
+                            <span class="like-count">0</span>
+                        </button>
                     </div>
                 </div>
             </div>
 
-            <!-- المشروع الثاني -->
-            <div class="project-card" data-category="classic">
-                <div class="project-img-container" onclick="openLightbox(this.querySelector('img').src)">
-                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1000&q=80" alt="ديكور فيلا" class="project-img">
-                </div>
-                <div class="project-info">
-                    <div>
-                        <h3 class="project-title">صالة استقبال كلاسيكية</h3>
-                        <p class="project-desc">تنسيق الفراغات الواسعة واستخدام عناصر خشبية كلاسيكية مع تفاصيل جدارية فاخرة.</p>
-                    </div>
-                    <div class="mood-board">
-                        <span class="mood-title">الخامات والألوان:</span>
-                        <div class="color-dot" style="background-color: #4a3525;" title="خشب جوز"></div>
-                        <div class="color-dot" style="background-color: #f4ebd0;" title="كريمي"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- المشروع الثالث -->
-            <div class="project-card" data-category="commercial">
-                <div class="project-img-container" onclick="openLightbox(this.querySelector('img').src)">
-                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=1000&q=80" alt="تصميم مكتب إداري" class="project-img">
-                </div>
-                <div class="project-info">
-                    <div>
-                        <h3 class="project-title">مكتب إداري عصري</h3>
-                        <p class="project-desc">تصميم بيئة عمل تحفيزية تجمع بين الزجاج الشفاف والإضاءة المدرسية الحديثة.</p>
-                    </div>
-                    <div class="mood-board">
-                        <span class="mood-title">الخامات والألوان:</span>
-                        <div class="color-dot" style="background-color: #708090;" title="رمادي معدني"></div>
-                        <div class="color-dot" style="background-color: #ffffff;" title="أبيض ناصع"></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- 5. قسم التواصل السريع -->
-        <div class="cta-section">
-            <h3>جاهز لتحويل مساحتك إلى تحفة فنية؟</h3>
-            <p>تواصل معي الآن لمناقشة مشروعك القادم وتصميم ديكورك الخاص.</p>
-            <a href="https://wa.me/" target="_blank" class="cta-btn">تواصل عبر واتساب</a>
         </div>
 
     </div>
 
-    <!-- 4. نافذة تكبير الصور (Lightbox) -->
+    <!-- نافذة تكبير الصور -->
     <div class="lightbox" id="lightbox" onclick="closeLightbox()">
         <span class="lightbox-close">&times;</span>
         <img id="lightboxImg" src="" alt="صورة مكبرة">
@@ -344,24 +234,23 @@
     </footer>
 
     <script>
-        // وظيفة الفلترة حسب الطراز
-        function filterProjects(category) {
-            const cards = document.querySelectorAll('.project-card');
-            const buttons = document.querySelectorAll('.filter-btn');
+        // تفاعل زر الإعجاب (القلب)
+        function toggleLike(btn) {
+            const icon = btn.querySelector('.like-icon');
+            const countSpan = btn.querySelector('.like-count');
+            let count = parseInt(countSpan.textContent);
 
-            buttons.forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
-            cards.forEach(card => {
-                if (category === 'all' || card.dataset.category === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+            if (btn.classList.contains('liked')) {
+                btn.classList.remove('liked');
+                icon.textContent = '♡';
+                countSpan.textContent = count - 1;
+            } else {
+                btn.classList.add('liked');
+                icon.textContent = '♥';
+                countSpan.textContent = count + 1;
+            }
         }
 
-        // وظائف تكبير الصور
         function openLightbox(imgSrc) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
