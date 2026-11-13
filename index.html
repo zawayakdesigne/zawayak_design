@@ -7,13 +7,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg-color: #0b1329; /* خلفية كحلي غامق */
-            --card-bg: #131c38;  /* لون بطاقات كحلي أفتح بدرجة */
-            --text-primary: #ffffff;
-            --text-secondary: #94a3b8;
-            --accent-color: #38bdf8;
-            --border-color: #1e293b;
-            --transition: all 0.25s ease;
+            --bg-color: #111827; /* خلفية داكنة فاخرة تتناغم مع اللوغو */
+            --card-bg: #1f2937;  /* لون البطاقات الداكن */
+            --text-primary: #f3f4f6;
+            --text-secondary: #9ca3af;
+            --accent-orange: #e67e22; /* لون برتقالي مستوحى من اللوغو */
+            --accent-blue: #3b82f6;   /* لون رمادي/أزرق مستوحى من اللوغو */
+            --border-color: #374151;
+            --transition: all 0.3s ease;
         }
 
         * {
@@ -32,25 +33,26 @@
 
         header {
             text-align: center;
-            padding: 35px 20px;
+            padding: 40px 20px;
             border-bottom: 1px solid var(--border-color);
             margin-bottom: 30px;
         }
 
-        /* تنسيق اللوغو الدائري */
+        /* تنسيق اللوغو المستخرج من صورتك */
         .site-logo {
-            width: 90px;
-            height: 90px;
-            object-fit: cover;
+            width: 95px;
+            height: 95px;
+            object-fit: contain;
             margin-bottom: 12px;
             border-radius: 50%;
-            background-color: #f7f3eb;
-            border: 2px solid var(--border-color);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            background-color: #fcfbfa; /* خلفية ناعمة تبرز ألوان اللوغو */
+            padding: 6px;
+            border: 2px solid var(--accent-orange);
+            box-shadow: 0 4px 15px rgba(230, 126, 34, 0.2);
         }
 
         header h1 {
-            font-size: 2.2rem;
+            font-size: 2.3rem;
             color: var(--text-primary);
             margin-bottom: 6px;
             letter-spacing: 1px;
@@ -67,11 +69,11 @@
             padding: 0 15px;
         }
 
-        /* أزرار قوائم التصنيفات (الفلترة) */
+        /* أزرار القوائم (التصنيفات) */
         .filter-buttons {
             display: flex;
             justify-content: center;
-            gap: 10px;
+            gap: 12px;
             margin-bottom: 35px;
             flex-wrap: wrap;
         }
@@ -80,21 +82,21 @@
             background-color: var(--card-bg);
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
-            padding: 8px 22px;
-            border-radius: 20px;
+            padding: 9px 22px;
+            border-radius: 25px;
             cursor: pointer;
             transition: var(--transition);
             font-size: 0.95rem;
         }
 
         .filter-btn:hover, .filter-btn.active {
-            background-color: var(--text-primary);
-            color: var(--bg-color);
-            border-color: var(--text-primary);
+            background-color: var(--accent-orange);
+            color: #ffffff;
+            border-color: var(--accent-orange);
             font-weight: bold;
         }
 
-        /* شبكة عرض بنمط إنستغرام */
+        /* شبكة عرض الصور (نمط إنستغرام) */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -103,7 +105,7 @@
 
         .project-card {
             background-color: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             border: 1px solid var(--border-color);
             transition: var(--transition);
@@ -112,10 +114,10 @@
         .project-img-container {
             position: relative;
             width: 100%;
-            aspect-ratio: 1 / 1; /* أبعاد مربعة مثل إنستغرام */
+            aspect-ratio: 1 / 1; /* عرض مربع تماماً مثل إنستغرام */
             cursor: pointer;
             overflow: hidden;
-            background-color: #070d1d;
+            background-color: #0b0f19;
         }
 
         .project-img {
@@ -130,11 +132,11 @@
         }
 
         .project-info {
-            padding: 14px 16px;
+            padding: 15px;
         }
 
         .project-title {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: 700;
             color: var(--text-primary);
             margin-bottom: 4px;
@@ -146,7 +148,7 @@
             margin-bottom: 12px;
         }
 
-        /* الشريط السفلي تحت الصورة: القائمة + زر الإعجاب */
+        /* الشريط السفلي: اسم القائمة وزر الإعجاب */
         .card-footer-row {
             display: flex;
             justify-content: space-between;
@@ -157,14 +159,14 @@
 
         .project-category-tag {
             font-size: 0.8rem;
-            background-color: var(--border-color);
-            color: var(--accent-color);
+            background-color: rgba(230, 126, 34, 0.15);
+            color: var(--accent-orange);
             padding: 4px 12px;
             border-radius: 15px;
             font-weight: 500;
         }
 
-        /* زر الإعجاب */
+        /* زر الإعجاب (قلب) */
         .like-btn {
             display: flex;
             align-items: center;
@@ -186,7 +188,7 @@
             line-height: 1;
         }
 
-        /* نافذة تكبير الصورة عند الضغط عليها */
+        /* نافذة تكبير الصور (Lightbox) */
         .lightbox {
             display: none;
             position: fixed;
@@ -195,7 +197,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(11, 19, 41, 0.95);
+            background-color: rgba(17, 24, 39, 0.95);
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -204,7 +206,7 @@
         .lightbox img {
             max-width: 92%;
             max-height: 90vh;
-            border-radius: 6px;
+            border-radius: 8px;
         }
 
         .lightbox-close {
@@ -229,15 +231,15 @@
 <body>
 
     <header>
-        <!-- ضع الاسم الكامل لصورة اللوغو الموجودة في مستودعك مكان العبارة بالأسفل -->
-        <img src="ضع_الاسم_الكامل_للصورة_هنا.jpg" alt="Zawayak Design" class="site-logo">
+        <!-- ضع اسم ملف اللوغو الموجود عندك في GitHub مكان logo.jpg -->
+        <img src="logo.jpg" alt="Zawayak Design Logo" class="site-logo">
         <h1>Zawayak Design</h1>
         <p>معرض أعمال التصميم الداخلي</p>
     </header>
 
     <div class="container">
         
-        <!-- قوائم الفلترة المطلوبة -->
+        <!-- أزرار قوائم التصنيفات التفاعلية -->
         <div class="filter-buttons">
             <button class="filter-btn active" onclick="filterProjects('all', this)">الكل</button>
             <button class="filter-btn" onclick="filterProjects('modern', this)">مودرن</button>
@@ -245,19 +247,19 @@
             <button class="filter-btn" onclick="filterProjects('neoclassic', this)">نيو كلاسيك</button>
         </div>
 
-        <!-- شبكة عرض الأعمال (فارغة وجاهزة لإضافة مشاريعك) -->
+        <!-- شبكة عرض الأعمال (فارغة تماماً لتضيف أعمالك براحتك) -->
         <div class="portfolio-grid" id="portfolioGrid">
             
             <!-- 
-            قالب إضافة مشروع جديد (انسخ هذا الكرت وضعه هنا داخل portfolioGrid عند إضافة أي عمل):
-            ملاحظة: في data-category اكتب إما modern أو classic أو neoclassic
+            طريقة إضافة مشروع جديد (انسخ هذا الكرت وضعه داخل portfolioGrid):
+            تغيير data-category إلى أحد الخيارات التالية حصراً: modern أو classic أو neoclassic
             
             <div class="project-card" data-category="modern">
                 <div class="project-img-container" onclick="openLightbox(this.querySelector('img').src)">
                     <img src="اسم-صورة-المشروع.jpg" alt="صورة المشروع" class="project-img">
                 </div>
                 <div class="project-info">
-                    <h3 class="project-title">اسم المشروع</h3>
+                    <h3 class="project-title">عنوان المشروع</h3>
                     <p class="project-desc">وصف مختصر للمشروع.</p>
                     <div class="card-footer-row">
                         <span class="project-category-tag">مودرن</span>
@@ -285,6 +287,7 @@
     </footer>
 
     <script>
+        // دالة تصفية القوائم (عند الضغط على أي قائمة تظهر صورها المخصصة فقط)
         function filterProjects(category, btn) {
             const cards = document.querySelectorAll('.project-card');
             const buttons = document.querySelectorAll('.filter-btn');
@@ -301,6 +304,7 @@
             });
         }
 
+        // دالة زر الإعجاب (القلب)
         function toggleLike(btn) {
             const icon = btn.querySelector('.like-icon');
             const countSpan = btn.querySelector('.like-count');
@@ -317,6 +321,7 @@
             }
         }
 
+        // فتح الصورة بحجم كامل عند الضغط عليها
         function openLightbox(imgSrc) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightboxImg');
